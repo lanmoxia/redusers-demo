@@ -5,6 +5,10 @@ import {User} from './components/User'
 import {Books} from './components/Books'
 import {Movies} from './components/Movies'
 import {Context} from './context'
+import userReducer from './redusers/user_reducer'
+import booksReducer from './redusers/books_reducer'
+import moviesReducer from './redusers/movies_reduser'
+
 // 定义 store
 const store = {
   user: null,
@@ -12,15 +16,9 @@ const store = {
   movies: null
 };
 const obj = {
-  'setUser': (state, action) => {
-    return {...state, user: action.user }
-  },
-  'setBooks': (state, action) => {
-    return {...state, books: action.books }
-  },
-  'setMovies': (state, action) => {
-    return {...state, movies: action.movies }
-  }
+  ...userReducer,
+  ...booksReducer,
+  ...moviesReducer
 }
 // 定义 reducer
 function reducer(state, action) {
