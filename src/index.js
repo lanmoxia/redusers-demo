@@ -11,17 +11,24 @@ const store = {
   books: null,
   movies: null
 };
+const obj = {
+  'setUser': (state, action) => {
+    return {...state, user: action.user }
+  },
+  'setBooks': (state, action) => {
+    return {...state, books: action.books }
+  },
+  'setMovies': (state, action) => {
+    return {...state, movies: action.movies }
+  }
+}
 // 定义 reducer
 function reducer(state, action) {
-  switch (action.type) {
-    case "setUser":
-      return { ...state, user: action.user };
-    case "setBooks":
-      return { ...state, books: action.books };
-    case "setMovies":
-      return { ...state, movies: action.movies };
-    default:
-      throw new Error();
+  const fn = obj[action.type]
+  if(obj[action]){
+    return fn(state, action)
+  }else{
+    throw new Error('传的什么玩意')
   }
 }
 
@@ -31,10 +38,6 @@ function App() {
 
   const api = { state, dispatch };
   return (
-    // 将第四部分的内容放到 Context
-    // 意思就是把 读写 api 放到 Context.Provider 上
-    // Context 提供给下边三个组件
-    // 三个组件就能获取到读写 api 了
     <Context.Provider value={api}>
       <User />
       <hr />
